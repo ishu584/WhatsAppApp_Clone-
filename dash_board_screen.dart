@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:whatsapp_app/screen/calls_screen.dart';
+import 'package:whatsapp_app/screen/chat_screen.dart';
+import 'package:whatsapp_app/screen/communities_screen.dart';
+import 'package:whatsapp_app/screen/update_screen.dart';
+
+class DashBoardScreen extends StatefulWidget {
+  const DashBoardScreen({super.key});
+
+  @override
+  State<DashBoardScreen> createState() => _DashBoardScreenState();
+}
+
+class _DashBoardScreenState extends State<DashBoardScreen> {
+  /// current screen show
+  int currentScreen = 0;
+
+  /// list of screen create
+  /// here we call mu bottom navigation bar screen
+  List<Widget> screen = [
+    const ChatScreen(),
+    const UpdateScreen(),
+    const CommunitiesScreen(),
+    const CallsScreen(),
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: screen[currentScreen],
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.black45,
+        unselectedLabelStyle: TextStyle(color: Colors.black45),
+        currentIndex: currentScreen,
+        showUnselectedLabels: true,
+        selectedFontSize: 18,
+        onTap: (value) {
+          currentScreen = value;
+          setState(() {});
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_outlined),
+            label: "Chats",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.update_sharp),
+            label: "Update",
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.peopleGroup),
+            label: "Communities",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.call_sharp), label: "Calls"),
+        ],
+      ),
+    );
+  }
+}
